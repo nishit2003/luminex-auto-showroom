@@ -35,7 +35,7 @@ export function ProductCard({ product }: ProductCardProps) {
   };
 
   return (
-    <Card className="card-product animate-fade-in">
+    <Card className="card-product group animate-fade-in">
       <CardHeader className="pb-3">
         {/* Product Image */}
         <div className="relative aspect-square bg-gradient-card rounded-lg overflow-hidden">

@@ -111,7 +111,7 @@
   }
   
   .card-product {
-    @apply card-automotive hover:shadow-accent/10 hover:-translate-y-1 group cursor-pointer;
+    @apply card-automotive hover:shadow-accent/10 hover:-translate-y-1 cursor-pointer;
   }
   
   /* Header styling */
