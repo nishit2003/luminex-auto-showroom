@@ -80,7 +80,10 @@ ${formData.message}
   };
 
   return (
-    <section className="py-20 bg-gradient-to-br from-secondary/30 via-background to-muted/30">
+    <section
+      id="contact-section"
+      className="py-20 bg-gradient-to-br from-secondary/30 via-background to-muted/30"
+    >
       <div className="container mx-auto px-4">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
@@ -124,7 +127,7 @@ ${formData.message}
                     <Phone className="h-5 w-5 text-accent mt-1 flex-shrink-0" />
                     <div>
                       <p className="font-semibold text-foreground">Phone</p>
-                      <p className="text-muted-foreground">+91 XXXXX XXXXX</p>
+                      <p className="text-muted-foreground">+91 9643294497</p>
                     </div>
                   </div>
                   <div className="flex items-start gap-4 p-4 rounded-xl bg-secondary/30 hover:bg-secondary/50 transition-colors duration-200">

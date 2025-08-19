@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -11,14 +11,150 @@ import { ContactSection } from "@/components/ContactSection";
 import { Footer } from "@/components/Footer";
 import { PRODUCTS, CATEGORIES, getProductsByCategory } from "@/data/products";
 import { Badge } from "@/components/ui/badge";
-import { Card, CardContent } from "@/components/ui/card";
-import { Zap, Star, TrendingUp, Shield, Truck, Clock } from "lucide-react";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Skeleton } from "@/components/ui/skeleton";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import {
+  Zap,
+  Star,
+  TrendingUp,
+  Shield,
+  Truck,
+  Clock,
+  Search,
+  Filter,
+  SortAsc,
+  SortDesc,
+  ArrowUp,
+  Home,
+  Package,
+  Info,
+  Mail,
+} from "lucide-react";
 
 const queryClient = new QueryClient();
 
 function HomePage() {
   const [activeCategory, setActiveCategory] = useState("All");
-  const filteredProducts = getProductsByCategory(activeCategory);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [sortBy, setSortBy] = useState("name");
+  const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
+  const [isLoading, setIsLoading] = useState(false);
+  const [showScrollTop, setShowScrollTop] = useState(false);
+
+  // Enhanced filtering and search with loading state and debouncing
+  const getFilteredAndSortedProducts = useCallback(() => {
+    let filtered = getProductsByCategory(activeCategory);
+
+    // Apply search filter
+    if (searchQuery.trim()) {
+      filtered = filtered.filter(
+        (product) =>
+          product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          product.code.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          product.tags.some((tag) =>
+            tag.toLowerCase().includes(searchQuery.toLowerCase())
+          ) ||
+          (product.variant &&
+            product.variant.toLowerCase().includes(searchQuery.toLowerCase()))
+      );
+    }
+
+    // Apply sorting
+    filtered.sort((a, b) => {
+      let aValue: string | number;
+      let bValue: string | number;
+
+      switch (sortBy) {
+        case "name":
+          aValue = a.name.toLowerCase();
+          bValue = b.name.toLowerCase();
+          break;
+        case "code":
+          aValue = a.code.toLowerCase();
+          bValue = b.code.toLowerCase();
+          break;
+        case "category":
+          aValue = a.category.toLowerCase();
+          bValue = b.category.toLowerCase();
+          break;
+        default:
+          aValue = a.name.toLowerCase();
+          bValue = b.name.toLowerCase();
+      }
+
+      if (sortOrder === "asc") {
+        return aValue < bValue ? -1 : aValue > bValue ? 1 : 0;
+      } else {
+        return aValue > bValue ? -1 : aValue < bValue ? 1 : 0;
+      }
+    });
+
+    return filtered;
+  }, [activeCategory, searchQuery, sortBy, sortOrder]);
+
+  const filteredProducts = getFilteredAndSortedProducts();
+  const totalProducts = PRODUCTS.length;
+  const filteredCount = filteredProducts.length;
+
+  // Handle loading state when filters change
+  useEffect(() => {
+    setIsLoading(true);
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 300);
+
+    return () => clearTimeout(timer);
+  }, [searchQuery, activeCategory, sortBy, sortOrder]);
+
+  // Scroll to top functionality
+  useEffect(() => {
+    const handleScroll = () => {
+      setShowScrollTop(window.scrollY > 500);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  // Product skeleton component
+  const ProductSkeleton = () => (
+    <Card className="card-product animate-pulse">
+      <CardHeader className="pb-4">
+        <Skeleton className="aspect-square rounded-2xl mb-4" />
+        <div className="flex items-center justify-between">
+          <Skeleton className="h-6 w-20" />
+          <Skeleton className="h-6 w-16" />
+        </div>
+      </CardHeader>
+      <CardContent className="pt-0 space-y-4">
+        <Skeleton className="h-6 w-full" />
+        <Skeleton className="h-6 w-3/4" />
+        <div className="flex gap-2">
+          <Skeleton className="h-6 w-16" />
+          <Skeleton className="h-6 w-20" />
+          <Skeleton className="h-6 w-14" />
+        </div>
+        <div className="flex gap-2">
+          <Skeleton className="h-6 w-16" />
+          <Skeleton className="h-6 w-20" />
+        </div>
+        <Skeleton className="h-10 w-full" />
+      </CardContent>
+    </Card>
+  );
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -29,184 +165,459 @@ function HomePage() {
       />
 
       <main className="flex-1">
-        {/* Enhanced Hero Section */}
-        <section className="relative py-20 bg-gradient-hero overflow-hidden">
-          {/* Background Elements */}
-          <div className="absolute inset-0 opacity-30">
-            <div className="absolute top-20 left-10 w-4 h-4 bg-accent/30 rounded-full animate-float"></div>
-            <div
-              className="absolute bottom-20 right-10 w-6 h-6 bg-primary-foreground/20 rounded-full animate-float"
-              style={{ animationDelay: "2s" }}
-            ></div>
-            <div
-              className="absolute top-1/2 left-1/4 w-2 h-2 bg-white/20 rounded-full animate-float"
-              style={{ animationDelay: "1s" }}
-            ></div>
-            <div
-              className="absolute top-1/3 right-1/4 w-3 h-3 bg-accent/20 rounded-full animate-float"
-              style={{ animationDelay: "3s" }}
-            ></div>
-          </div>
+        {/* Modern Tabbed Interface */}
+        <div className="container mx-auto px-4 py-8">
+          <Tabs defaultValue="home" className="w-full">
+            <TabsList className="grid w-full grid-cols-4 mb-8">
+              <TabsTrigger value="home" className="flex items-center gap-2">
+                <Home className="h-4 w-4" />
+                Home
+              </TabsTrigger>
+              <TabsTrigger value="products" className="flex items-center gap-2">
+                <Package className="h-4 w-4" />
+                Products
+              </TabsTrigger>
+              <TabsTrigger value="about" className="flex items-center gap-2">
+                <Info className="h-4 w-4" />
+                About
+              </TabsTrigger>
+              <TabsTrigger value="contact" className="flex items-center gap-2">
+                <Mail className="h-4 w-4" />
+                Contact
+              </TabsTrigger>
+            </TabsList>
 
-          <div className="container mx-auto px-4 relative z-10">
-            <div className="max-w-5xl mx-auto text-center">
-              <div className="mb-8">
-                <Badge
-                  variant="secondary"
-                  className="bg-white/20 text-primary-foreground border-white/30 px-4 py-2 text-sm font-medium mb-6 animate-fade-in"
-                >
-                  <Zap className="h-4 w-4 mr-2" />
-                  Premium Automotive Solutions
-                </Badge>
+            {/* Home Tab */}
+            <TabsContent value="home" className="space-y-16">
+              {/* Hero Section */}
+              <section className="relative py-20 bg-gradient-hero overflow-hidden rounded-3xl">
+                <div className="absolute inset-0 opacity-30">
+                  <div className="absolute top-20 left-10 w-4 h-4 bg-accent/30 rounded-full animate-float"></div>
+                  <div
+                    className="absolute bottom-20 right-10 w-6 h-6 bg-primary-foreground/20 rounded-full animate-float"
+                    style={{ animationDelay: "2s" }}
+                  ></div>
+                  <div
+                    className="absolute top-1/2 left-1/4 w-2 h-2 bg-white/20 rounded-full animate-float"
+                    style={{ animationDelay: "1s" }}
+                  ></div>
+                  <div
+                    className="absolute top-1/3 right-1/4 w-3 h-3 bg-accent/20 rounded-full animate-float"
+                    style={{ animationDelay: "3s" }}
+                  ></div>
+                </div>
+
+                <div className="container mx-auto px-4 relative z-10">
+                  <div className="max-w-5xl mx-auto text-center">
+                    <div className="mb-8">
+                      <Badge
+                        variant="secondary"
+                        className="bg-white/20 text-primary-foreground border-white/30 px-4 py-2 text-sm font-medium mb-6 animate-fade-in"
+                      >
+                        <Zap className="h-4 w-4 mr-2" />
+                        Premium Automotive Solutions
+                      </Badge>
+                    </div>
+
+                    <h1 className="text-5xl md:text-7xl font-bold text-gradient-hero mb-8 animate-fade-in leading-tight">
+                      Illuminate Your Journey
+                    </h1>
+
+                    <p className="text-xl md:text-2xl text-primary-foreground/90 mb-10 animate-slide-up max-w-3xl mx-auto leading-relaxed">
+                      Premium automotive lighting solutions for every vehicle.
+                      From head lights to power systems, we light the way
+                      forward with innovation and reliability.
+                    </p>
+
+                    <div className="flex flex-col sm:flex-row gap-6 justify-center animate-scale-in">
+                      <Button
+                        className="btn-accent text-lg px-10 py-4 h-14 font-bold"
+                        onClick={() => {
+                          const productsTab = document.querySelector(
+                            '[data-value="products"]'
+                          ) as HTMLElement;
+                          productsTab?.click();
+                        }}
+                      >
+                        <Star className="h-5 w-5 mr-2" />
+                        Browse Products
+                      </Button>
+                      <Button
+                        variant="outline"
+                        className="text-lg px-10 py-4 h-14 font-bold border-2 border-accent text-accent hover:bg-accent hover:text-accent-foreground transition-all duration-300"
+                        onClick={() => {
+                          const link = document.createElement("a");
+                          link.href = "/Catalogue 2025.pdf";
+                          link.download = "Catalogue 2025.pdf";
+                          link.click();
+                        }}
+                      >
+                        <TrendingUp className="h-5 w-5 mr-2" />
+                        Download PDF
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+              {/* Features Section */}
+              <section className="py-16 bg-secondary/20 rounded-3xl">
+                <div className="container mx-auto px-4">
+                  <div className="text-center mb-12">
+                    <h2 className="text-3xl md:text-4xl font-bold text-gradient-primary mb-4">
+                      Why Choose Luminex AutoTech?
+                    </h2>
+                    <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+                      We provide comprehensive automotive solutions with
+                      unmatched quality and service
+                    </p>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+                    <Card className="card-feature text-center p-6">
+                      <CardContent className="p-0">
+                        <div className="bg-gradient-primary w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
+                          <Shield className="h-8 w-8 text-primary-foreground" />
+                        </div>
+                        <h3 className="text-xl font-bold text-foreground mb-2">
+                          Premium Quality
+                        </h3>
+                        <p className="text-muted-foreground">
+                          Certified automotive lighting solutions meeting
+                          international standards
+                        </p>
+                      </CardContent>
+                    </Card>
+
+                    <Card className="card-feature text-center p-6">
+                      <CardContent className="p-0">
+                        <div className="bg-gradient-accent w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
+                          <Truck className="h-8 w-8 text-accent-foreground" />
+                        </div>
+                        <h3 className="text-xl font-bold text-foreground mb-2">
+                          Fast Delivery
+                        </h3>
+                        <p className="text-muted-foreground">
+                          Quick nationwide shipping with real-time tracking and
+                          support
+                        </p>
+                      </CardContent>
+                    </Card>
+
+                    <Card className="card-feature text-center p-6">
+                      <CardContent className="p-0">
+                        <div className="bg-gradient-primary w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
+                          <Clock className="h-8 w-8 text-primary-foreground" />
+                        </div>
+                        <h3 className="text-xl font-bold text-foreground mb-2">
+                          24/7 Support
+                        </h3>
+                        <p className="text-muted-foreground">
+                          Round-the-clock technical assistance and customer
+                          service
+                        </p>
+                      </CardContent>
+                    </Card>
+                  </div>
+                </div>
+              </section>
+
+              {/* Product Stats Preview */}
+              <section className="py-16">
+                <div className="container mx-auto px-4">
+                  <div className="text-center mb-12">
+                    <h2 className="text-3xl md:text-4xl font-bold text-gradient-primary mb-4">
+                      Our Product Range
+                    </h2>
+                    <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+                      Discover our comprehensive range of automotive lighting
+                      and electrical accessories
+                    </p>
+                  </div>
+
+                  <div className="grid grid-cols-2 md:grid-cols-5 gap-4 max-w-5xl mx-auto">
+                    {CATEGORIES.slice(1).map((category, index) => {
+                      const count = getProductsByCategory(category).length;
+                      return (
+                        <Card
+                          key={category}
+                          className="card-feature text-center p-4 hover-lift h-28 flex items-center group cursor-pointer transition-all duration-500 hover:scale-105"
+                          style={{ animationDelay: `${index * 100}ms` }}
+                        >
+                          <CardContent className="p-0 w-full">
+                            <div className="text-3xl font-bold text-accent mb-2 group-hover:text-primary transition-colors duration-300">
+                              {count}
+                            </div>
+                            <div className="text-xs text-muted-foreground font-medium leading-tight px-1 group-hover:text-foreground transition-colors duration-300">
+                              {category}
+                            </div>
+                            <div className="w-0 group-hover:w-full h-0.5 bg-gradient-to-r from-accent to-primary transition-all duration-500 mx-auto mt-2"></div>
+                          </CardContent>
+                        </Card>
+                      );
+                    })}
+                  </div>
+
+                  <div className="text-center mt-8">
+                    <Button
+                      className="btn-accent text-lg px-8 py-3 h-12 font-semibold"
+                      onClick={() => {
+                        const productsTab = document.querySelector(
+                          '[data-value="products"]'
+                        ) as HTMLElement;
+                        productsTab?.click();
+                      }}
+                    >
+                      <Package className="h-5 w-5 mr-2" />
+                      View All Products
+                    </Button>
+                  </div>
+                </div>
+              </section>
+            </TabsContent>
+
+            {/* Products Tab */}
+            <TabsContent value="products" className="space-y-8">
+              {/* Search and Filter Bar */}
+              <div className="max-w-4xl mx-auto animate-fade-in-up">
+                <Card className="p-4 sm:p-6 bg-gradient-to-r from-secondary/30 to-muted/30 border-accent/20">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 items-end">
+                    {/* Search Input */}
+                    <div className="sm:col-span-2">
+                      <label className="text-sm font-medium text-foreground mb-2 block">
+                        Search Products
+                      </label>
+                      <div className="relative">
+                        <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                        <Input
+                          placeholder="Search by name, code, tags, or variant..."
+                          value={searchQuery}
+                          onChange={(e) => setSearchQuery(e.target.value)}
+                          className="pl-10 h-12 border-accent/30 focus:border-accent/50 focus:ring-accent/20"
+                        />
+                      </div>
+                    </div>
+
+                    {/* Sort By */}
+                    <div>
+                      <label className="text-sm font-medium text-foreground mb-2 block">
+                        Sort By
+                      </label>
+                      <Select value={sortBy} onValueChange={setSortBy}>
+                        <SelectTrigger className="h-12 border-accent/30 focus:border-accent/50 focus:ring-accent/20">
+                          <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="name">Name</SelectItem>
+                          <SelectItem value="code">Code</SelectItem>
+                          <SelectItem value="category">Category</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+
+                    {/* Sort Order */}
+                    <div>
+                      <label className="text-sm font-medium text-foreground mb-2 block">
+                        Order
+                      </label>
+                      <Button
+                        variant="outline"
+                        onClick={() =>
+                          setSortOrder(sortOrder === "asc" ? "desc" : "asc")
+                        }
+                        className="w-full h-12 border-accent/30 hover:border-accent/50 hover:bg-accent/10"
+                      >
+                        {sortOrder === "asc" ? (
+                          <>
+                            <SortAsc className="h-4 w-4 mr-2" />
+                            <span className="hidden sm:inline">A-Z</span>
+                          </>
+                        ) : (
+                          <>
+                            <SortDesc className="h-4 w-4 mr-2" />
+                            <span className="hidden sm:inline">Z-A</span>
+                          </>
+                        )}
+                      </Button>
+                    </div>
+                  </div>
+
+                  {/* Results Summary */}
+                  <div className="mt-4 pt-4 border-t border-accent/20">
+                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 text-sm text-muted-foreground">
+                      <div className="flex items-center gap-2">
+                        <Filter className="h-4 w-4" />
+                        <span className="text-xs sm:text-sm">
+                          Showing {filteredCount} of {totalProducts} products
+                          {activeCategory !== "All" && ` in ${activeCategory}`}
+                          {searchQuery && ` matching "${searchQuery}"`}
+                        </span>
+                      </div>
+                      {searchQuery && (
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          onClick={() => setSearchQuery("")}
+                          className="text-accent hover:text-accent/80 self-start sm:self-auto"
+                        >
+                          Clear Search
+                        </Button>
+                      )}
+                    </div>
+                  </div>
+                </Card>
               </div>
 
-              <h1 className="text-5xl md:text-7xl font-bold text-gradient-hero mb-8 animate-fade-in leading-tight">
-                Illuminate Your Journey
-              </h1>
+              {/* Products Grid with Loading States */}
+              {isLoading ? (
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4 sm:gap-6 lg:gap-8">
+                  {Array.from({ length: 10 }).map((_, index) => (
+                    <ProductSkeleton key={index} />
+                  ))}
+                </div>
+              ) : (
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4 sm:gap-6 lg:gap-8">
+                  {filteredProducts.map((product) => (
+                    <ProductCard key={product.code} product={product} />
+                  ))}
+                </div>
+              )}
 
-              <p className="text-xl md:text-2xl text-primary-foreground/90 mb-10 animate-slide-up max-w-3xl mx-auto leading-relaxed">
-                Premium automotive lighting solutions for every vehicle. From
-                head lights to power systems, we light the way forward with
-                innovation and reliability.
-              </p>
-
-              <div className="flex flex-col sm:flex-row gap-6 justify-center animate-scale-in">
-                <Button className="btn-accent text-lg px-10 py-4 h-14 text-base font-bold">
-                  <Star className="h-5 w-5 mr-2" />
-                  Browse Catalogue
-                </Button>
-                <Button
-                  variant="outline"
-                  className="text-lg px-10 py-4 h-14 text-base font-bold border-2 border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10 hover:border-primary-foreground/50 transition-all duration-300"
-                >
-                  <TrendingUp className="h-5 w-5 mr-2" />
-                  Download PDF
-                </Button>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Enhanced Features Section */}
-        <section className="py-16 bg-secondary/20">
-          <div className="container mx-auto px-4">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-              <Card className="card-feature text-center p-6">
-                <CardContent className="p-0">
-                  <div className="bg-gradient-primary w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
-                    <Shield className="h-8 w-8 text-primary-foreground" />
+              {!isLoading && filteredProducts.length === 0 && (
+                <div className="text-center py-16">
+                  <div className="bg-secondary/50 rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-6">
+                    <Search className="h-10 w-10 text-muted-foreground" />
                   </div>
-                  <h3 className="text-xl font-bold text-foreground mb-2">
-                    Premium Quality
-                  </h3>
-                  <p className="text-muted-foreground">
-                    Certified automotive lighting solutions meeting
-                    international standards
+                  <p className="text-xl text-muted-foreground font-medium">
+                    No products found.
                   </p>
-                </CardContent>
-              </Card>
-
-              <Card className="card-feature text-center p-6">
-                <CardContent className="p-0">
-                  <div className="bg-gradient-accent w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
-                    <Truck className="h-8 w-8 text-accent-foreground" />
-                  </div>
-                  <h3 className="text-xl font-bold text-foreground mb-2">
-                    Fast Delivery
-                  </h3>
-                  <p className="text-muted-foreground">
-                    Quick nationwide shipping with real-time tracking and
-                    support
+                  <p className="text-muted-foreground mt-2">
+                    {searchQuery
+                      ? `Try adjusting your search terms or browse all products.`
+                      : `Try selecting a different category or browse all products.`}
                   </p>
-                </CardContent>
-              </Card>
+                  {searchQuery && (
+                    <Button
+                      variant="outline"
+                      onClick={() => setSearchQuery("")}
+                      className="mt-4"
+                    >
+                      Clear Search
+                    </Button>
+                  )}
+                </div>
+              )}
+            </TabsContent>
 
-              <Card className="card-feature text-center p-6">
-                <CardContent className="p-0">
-                  <div className="bg-gradient-primary w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
-                    <Clock className="h-8 w-8 text-primary-foreground" />
-                  </div>
-                  <h3 className="text-xl font-bold text-foreground mb-2">
-                    24/7 Support
-                  </h3>
-                  <p className="text-muted-foreground">
-                    Round-the-clock technical assistance and customer service
+            {/* About Tab */}
+            <TabsContent value="about" className="space-y-8">
+              <div className="max-w-4xl mx-auto">
+                <div className="text-center mb-12">
+                  <h2 className="text-3xl md:text-4xl font-bold text-gradient-primary mb-4">
+                    About Luminex AutoTech
+                  </h2>
+                  <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+                    Leading provider of premium automotive lighting solutions
                   </p>
-                </CardContent>
-              </Card>
-            </div>
-          </div>
-        </section>
+                </div>
 
-        {/* Enhanced Products Section */}
-        <section className="py-20">
-          <div className="container mx-auto px-4">
-            <div className="text-center mb-16">
-              <Badge
-                variant="secondary"
-                className="bg-accent/10 text-accent border-accent/20 px-4 py-2 text-sm font-medium mb-4"
-              >
-                <Zap className="h-4 w-4 mr-2" />
-                Our Product Range
-              </Badge>
-              <h2 className="text-4xl md:text-5xl font-bold text-gradient-primary mb-6">
-                Automotive Excellence
-              </h2>
-              <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-                Discover our comprehensive range of automotive lighting and
-                electrical accessories, designed for durability, performance,
-                and style.
-              </p>
-            </div>
-
-            {/* Enhanced Product Stats */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-16 max-w-4xl mx-auto">
-              {CATEGORIES.slice(1).map((category) => {
-                const count = getProductsByCategory(category).length;
-                return (
-                  <Card
-                    key={category}
-                    className="card-feature text-center p-6 hover-lift"
-                  >
+                <div className="grid md:grid-cols-2 gap-8">
+                  <Card className="p-8">
                     <CardContent className="p-0">
-                      <div className="text-3xl font-bold text-accent mb-2">
-                        {count}
-                      </div>
-                      <div className="text-sm text-muted-foreground font-medium">
-                        {category}
-                      </div>
+                      <h3 className="text-2xl font-bold text-foreground mb-4">
+                        Our Story
+                      </h3>
+                      <p className="text-muted-foreground leading-relaxed">
+                        Founded with a vision to illuminate the automotive
+                        industry with innovative lighting solutions, Luminex
+                        AutoTech has been at the forefront of automotive
+                        lighting technology for years. We specialize in
+                        providing high-quality, durable lighting solutions for
+                        all types of vehicles.
+                      </p>
                     </CardContent>
                   </Card>
-                );
-              })}
-            </div>
 
-            {/* Enhanced Products Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-8">
-              {filteredProducts.map((product) => (
-                <ProductCard key={product.code} product={product} />
-              ))}
-            </div>
-
-            {filteredProducts.length === 0 && (
-              <div className="text-center py-16">
-                <div className="bg-secondary/50 rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-6">
-                  <Zap className="h-10 w-10 text-muted-foreground" />
+                  <Card className="p-8">
+                    <CardContent className="p-0">
+                      <h3 className="text-2xl font-bold text-foreground mb-4">
+                        Our Mission
+                      </h3>
+                      <p className="text-muted-foreground leading-relaxed">
+                        To provide automotive enthusiasts and professionals with
+                        the highest quality lighting solutions that enhance
+                        safety, performance, and aesthetics. We are committed to
+                        innovation, quality, and customer satisfaction.
+                      </p>
+                    </CardContent>
+                  </Card>
                 </div>
-                <p className="text-xl text-muted-foreground font-medium">
-                  No products found in this category.
-                </p>
-                <p className="text-muted-foreground mt-2">
-                  Try selecting a different category or browse all products.
-                </p>
+
+                <Card className="mt-8 p-8 bg-gradient-to-r from-secondary/30 to-muted/30">
+                  <CardContent className="p-0">
+                    <h3 className="text-2xl font-bold text-foreground mb-6 text-center">
+                      Why Choose Us?
+                    </h3>
+                    <div className="grid md:grid-cols-3 gap-6">
+                      <div className="text-center">
+                        <div className="bg-gradient-primary w-12 h-12 rounded-xl flex items-center justify-center mx-auto mb-3">
+                          <Shield className="h-6 w-6 text-primary-foreground" />
+                        </div>
+                        <h4 className="font-semibold text-foreground mb-2">
+                          Quality Assurance
+                        </h4>
+                        <p className="text-sm text-muted-foreground">
+                          All products meet international standards
+                        </p>
+                      </div>
+                      <div className="text-center">
+                        <div className="bg-gradient-accent w-12 h-12 rounded-xl flex items-center justify-center mx-auto mb-3">
+                          <Truck className="h-6 w-6 text-accent-foreground" />
+                        </div>
+                        <h4 className="font-semibold text-foreground mb-2">
+                          Fast Delivery
+                        </h4>
+                        <p className="text-sm text-muted-foreground">
+                          Quick nationwide shipping
+                        </p>
+                      </div>
+                      <div className="text-center">
+                        <div className="bg-gradient-primary w-12 h-12 rounded-xl flex items-center justify-center mx-auto mb-3">
+                          <Clock className="h-6 w-6 text-primary-foreground" />
+                        </div>
+                        <h4 className="font-semibold text-foreground mb-2">
+                          24/7 Support
+                        </h4>
+                        <p className="text-sm text-muted-foreground">
+                          Round-the-clock assistance
+                        </p>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
               </div>
-            )}
-          </div>
-        </section>
+            </TabsContent>
+
+            {/* Contact Tab */}
+            <TabsContent value="contact" className="space-y-8">
+              <ContactSection />
+            </TabsContent>
+          </Tabs>
+        </div>
       </main>
 
-      <ContactSection />
       <Footer />
+
+      {/* Scroll to Top Button */}
+      {showScrollTop && (
+        <Button
+          onClick={scrollToTop}
+          className="fixed bottom-6 right-6 h-12 w-12 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 z-50 btn-accent"
+          size="sm"
+        >
+          <ArrowUp className="h-5 w-5" />
+        </Button>
+      )}
     </div>
   );
 }
