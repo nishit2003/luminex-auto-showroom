@@ -9,6 +9,8 @@ import { Header } from "@/components/Header";
 import { ProductCard } from "@/components/ProductCard";
 import { ContactSection } from "@/components/ContactSection";
 import { Footer } from "@/components/Footer";
+import { ModernHero } from "@/components/ModernHero";
+import { ModernFeatures } from "@/components/ModernFeatures";
 import { PRODUCTS, CATEGORIES, getProductsByCategory } from "@/data/products";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
@@ -188,139 +190,25 @@ function HomePage() {
             </TabsList>
 
             {/* Home Tab */}
-            <TabsContent value="home" className="space-y-16">
-              {/* Hero Section */}
-              <section className="relative py-20 bg-gradient-hero overflow-hidden rounded-3xl">
-                <div className="absolute inset-0 opacity-30">
-                  <div className="absolute top-20 left-10 w-4 h-4 bg-accent/30 rounded-full animate-float"></div>
-                  <div
-                    className="absolute bottom-20 right-10 w-6 h-6 bg-primary-foreground/20 rounded-full animate-float"
-                    style={{ animationDelay: "2s" }}
-                  ></div>
-                  <div
-                    className="absolute top-1/2 left-1/4 w-2 h-2 bg-white/20 rounded-full animate-float"
-                    style={{ animationDelay: "1s" }}
-                  ></div>
-                  <div
-                    className="absolute top-1/3 right-1/4 w-3 h-3 bg-accent/20 rounded-full animate-float"
-                    style={{ animationDelay: "3s" }}
-                  ></div>
-                </div>
+            <TabsContent value="home" className="space-y-20">
+              {/* Modern Hero Section */}
+              <ModernHero 
+                onBrowseProducts={() => {
+                  const productsTab = document.querySelector(
+                    '[data-value="products"]'
+                  ) as HTMLElement;
+                  productsTab?.click();
+                }}
+                onDownloadCatalog={() => {
+                  const link = document.createElement("a");
+                  link.href = "/Catalogue 2025.pdf";
+                  link.download = "Catalogue 2025.pdf";
+                  link.click();
+                }}
+              />
 
-                <div className="container mx-auto px-4 relative z-10">
-                  <div className="max-w-5xl mx-auto text-center">
-                    <div className="mb-8">
-                      <Badge
-                        variant="secondary"
-                        className="bg-white/20 text-primary-foreground border-white/30 px-4 py-2 text-sm font-medium mb-6 animate-fade-in"
-                      >
-                        <Zap className="h-4 w-4 mr-2" />
-                        Premium Automotive Solutions
-                      </Badge>
-                    </div>
-
-                    <h1 className="text-5xl md:text-7xl font-bold text-gradient-hero mb-8 animate-fade-in leading-tight">
-                      Illuminate Your Journey
-                    </h1>
-
-                    <p className="text-xl md:text-2xl text-primary-foreground/90 mb-10 animate-slide-up max-w-3xl mx-auto leading-relaxed">
-                      Premium automotive lighting solutions for every vehicle.
-                      From head lights to power systems, we light the way
-                      forward with innovation and reliability.
-                    </p>
-
-                    <div className="flex flex-col sm:flex-row gap-6 justify-center animate-scale-in">
-                      <Button
-                        className="btn-accent text-lg px-10 py-4 h-14 font-bold"
-                        onClick={() => {
-                          const productsTab = document.querySelector(
-                            '[data-value="products"]'
-                          ) as HTMLElement;
-                          productsTab?.click();
-                        }}
-                      >
-                        <Star className="h-5 w-5 mr-2" />
-                        Browse Products
-                      </Button>
-                      <Button
-                        variant="outline"
-                        className="text-lg px-10 py-4 h-14 font-bold border-2 border-accent text-accent hover:bg-accent hover:text-accent-foreground transition-all duration-300"
-                        onClick={() => {
-                          const link = document.createElement("a");
-                          link.href = "/Catalogue 2025.pdf";
-                          link.download = "Catalogue 2025.pdf";
-                          link.click();
-                        }}
-                      >
-                        <TrendingUp className="h-5 w-5 mr-2" />
-                        Download PDF
-                      </Button>
-                    </div>
-                  </div>
-                </div>
-              </section>
-
-              {/* Features Section */}
-              <section className="py-16 bg-secondary/20 rounded-3xl">
-                <div className="container mx-auto px-4">
-                  <div className="text-center mb-12">
-                    <h2 className="text-3xl md:text-4xl font-bold text-gradient-primary mb-4">
-                      Why Choose Luminex AutoTech?
-                    </h2>
-                    <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                      We provide comprehensive automotive solutions with
-                      unmatched quality and service
-                    </p>
-                  </div>
-
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-                    <Card className="card-feature text-center p-6">
-                      <CardContent className="p-0">
-                        <div className="bg-gradient-primary w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
-                          <Shield className="h-8 w-8 text-primary-foreground" />
-                        </div>
-                        <h3 className="text-xl font-bold text-foreground mb-2">
-                          Premium Quality
-                        </h3>
-                        <p className="text-muted-foreground">
-                          Certified automotive lighting solutions meeting
-                          international standards
-                        </p>
-                      </CardContent>
-                    </Card>
-
-                    <Card className="card-feature text-center p-6">
-                      <CardContent className="p-0">
-                        <div className="bg-gradient-accent w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
-                          <Truck className="h-8 w-8 text-accent-foreground" />
-                        </div>
-                        <h3 className="text-xl font-bold text-foreground mb-2">
-                          Fast Delivery
-                        </h3>
-                        <p className="text-muted-foreground">
-                          Quick nationwide shipping with real-time tracking and
-                          support
-                        </p>
-                      </CardContent>
-                    </Card>
-
-                    <Card className="card-feature text-center p-6">
-                      <CardContent className="p-0">
-                        <div className="bg-gradient-primary w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
-                          <Clock className="h-8 w-8 text-primary-foreground" />
-                        </div>
-                        <h3 className="text-xl font-bold text-foreground mb-2">
-                          24/7 Support
-                        </h3>
-                        <p className="text-muted-foreground">
-                          Round-the-clock technical assistance and customer
-                          service
-                        </p>
-                      </CardContent>
-                    </Card>
-                  </div>
-                </div>
-              </section>
+              {/* Modern Features Section */}
+              <ModernFeatures />
 
               {/* Product Stats Preview */}
               <section className="py-16">

@@ -6,17 +6,17 @@
 
 @layer base {
   :root {
-    /* Enhanced automotive color palette */
-    --background: 0 0% 100%;
-    --foreground: 220 13% 18%;
+  /* Enhanced automotive color palette */
+  --background: 0 0% 100%;
+  --foreground: 220 13% 18%;
 
-    /* Premium navy blue automotive base */
-    --primary: 220 100% 12%;
-    --primary-foreground: 0 0% 100%;
-    --primary-hover: 220 100% 8%;
+  /* Premium navy blue automotive base */
+  --primary: 220 90% 15%;
+  --primary-foreground: 0 0% 100%;
+  --primary-hover: 220 90% 10%;
 
-    /* Electric blue accent for tech/modern feel */
-    --accent: 195 100% 50%;
+  /* Modern electric blue accent */
+  --accent: 210 100% 55%;
     --accent-foreground: 220 13% 18%;
     --accent-hover: 195 100% 40%;
 
@@ -47,33 +47,48 @@
     --warning: 38 92% 50%;
     --warning-foreground: 220 13% 18%;
 
-    /* Premium gradients */
-    --gradient-primary: linear-gradient(
-      135deg,
-      hsl(220 100% 12%),
-      hsl(220 100% 20%)
-    );
-    --gradient-accent: linear-gradient(
-      135deg,
-      hsl(195 100% 50%),
-      hsl(195 100% 60%)
-    );
-    --gradient-hero: linear-gradient(
-      135deg,
-      hsl(220 100% 12%) 0%,
-      hsl(220 100% 18%) 40%,
-      hsl(195 100% 50%) 100%
-    );
-    --gradient-card: linear-gradient(
-      145deg,
-      hsl(0 0% 100%) 0%,
-      hsl(220 14% 99%) 100%
-    );
-    --gradient-glass: linear-gradient(
-      135deg,
-      rgba(255, 255, 255, 0.1),
-      rgba(255, 255, 255, 0.05)
-    );
+  /* Premium gradients */
+  --gradient-primary: linear-gradient(
+    135deg,
+    hsl(220 90% 15%),
+    hsl(220 90% 25%)
+  );
+  --gradient-accent: linear-gradient(
+    135deg,
+    hsl(210 100% 55%),
+    hsl(210 100% 65%)
+  );
+  --gradient-hero: linear-gradient(
+    135deg,
+    hsl(220 90% 15%) 0%,
+    hsl(220 90% 25%) 40%,
+    hsl(210 100% 55%) 100%
+  );
+  --gradient-card: linear-gradient(
+    145deg,
+    hsl(0 0% 100%) 0%,
+    hsl(220 14% 99%) 100%
+  );
+  --gradient-glass: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.25),
+    rgba(255, 255, 255, 0.1)
+  );
+  --gradient-mesh: radial-gradient(
+    at 40% 20%,
+    hsl(210 100% 55% / 0.3) 0px,
+    transparent 50%
+  ),
+  radial-gradient(
+    at 80% 0%,
+    hsl(220 90% 15% / 0.2) 0px,
+    transparent 50%
+  ),
+  radial-gradient(
+    at 0% 50%,
+    hsl(210 100% 65% / 0.2) 0px,
+    transparent 50%
+  );
 
     /* Enhanced shadows */
     --shadow-sm: 0 1px 3px hsl(220 13% 18% / 0.08);
@@ -137,20 +152,38 @@
 
   /* Enhanced card styling */
   .card-automotive {
-    @apply rounded-2xl border border-border/50 bg-card text-card-foreground shadow-card hover:shadow-lg transition-all duration-500 backdrop-blur-sm;
+    @apply rounded-3xl border border-border/30 bg-card text-card-foreground shadow-lg hover:shadow-xl transition-all duration-500 backdrop-blur-sm;
   }
 
   .card-product {
-    @apply card-automotive hover:shadow-accent/20 hover:-translate-y-2 cursor-pointer border-accent/20 hover:border-accent/40;
+    @apply card-automotive hover:shadow-accent/30 hover:-translate-y-3 cursor-pointer border-accent/20 hover:border-accent/50 bg-gradient-to-br from-white via-white to-secondary/20;
   }
 
   .card-feature {
-    @apply card-automotive bg-gradient-to-br from-white to-secondary/50 hover:shadow-xl hover:-translate-y-1;
+    @apply card-automotive bg-gradient-to-br from-white via-secondary/30 to-accent/5 hover:shadow-2xl hover:-translate-y-2 border-accent/10;
+  }
+
+  .card-glass {
+    @apply rounded-3xl backdrop-blur-xl bg-white/10 border border-white/20 shadow-2xl hover:bg-white/15 transition-all duration-500;
   }
 
   /* Enhanced header styling */
   .header-sticky {
-    @apply sticky top-0 z-50 border-b border-border/30 bg-background/95 backdrop-blur-xl supports-[backdrop-filter]:bg-background/80 shadow-sm;
+    @apply sticky top-0 z-50 border-b border-border/20 bg-background/95 backdrop-blur-2xl supports-[backdrop-filter]:bg-background/85 shadow-lg;
+  }
+
+  .hero-modern {
+    @apply relative overflow-hidden rounded-3xl bg-gradient-hero;
+  }
+
+  .hero-modern::before {
+    content: '';
+    @apply absolute inset-0 bg-gradient-mesh opacity-70;
+  }
+
+  .hero-modern::after {
+    content: '';
+    @apply absolute inset-0 bg-gradient-to-t from-black/10 via-transparent to-transparent;
   }
 
   /* Enhanced gradient text effects */
