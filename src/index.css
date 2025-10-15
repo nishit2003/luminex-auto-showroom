@@ -6,17 +6,17 @@
 
 @layer base {
   :root {
-  /* Enhanced automotive color palette */
-  --background: 0 0% 100%;
-  --foreground: 220 13% 18%;
+    /* Enhanced automotive color palette */
+    --background: 0 0% 100%;
+    --foreground: 220 13% 18%;
 
-  /* Premium navy blue automotive base */
-  --primary: 220 90% 15%;
-  --primary-foreground: 0 0% 100%;
-  --primary-hover: 220 90% 10%;
+    /* Premium navy blue automotive base */
+    --primary: 220 90% 15%;
+    --primary-foreground: 0 0% 100%;
+    --primary-hover: 220 90% 10%;
 
-  /* Modern electric blue accent */
-  --accent: 210 100% 55%;
+    /* Modern electric blue accent */
+    --accent: 210 100% 55%;
     --accent-foreground: 220 13% 18%;
     --accent-hover: 195 100% 40%;
 
@@ -47,48 +47,40 @@
     --warning: 38 92% 50%;
     --warning-foreground: 220 13% 18%;
 
-  /* Premium gradients */
-  --gradient-primary: linear-gradient(
-    135deg,
-    hsl(220 90% 15%),
-    hsl(220 90% 25%)
-  );
-  --gradient-accent: linear-gradient(
-    135deg,
-    hsl(210 100% 55%),
-    hsl(210 100% 65%)
-  );
-  --gradient-hero: linear-gradient(
-    135deg,
-    hsl(220 90% 15%) 0%,
-    hsl(220 90% 25%) 40%,
-    hsl(210 100% 55%) 100%
-  );
-  --gradient-card: linear-gradient(
-    145deg,
-    hsl(0 0% 100%) 0%,
-    hsl(220 14% 99%) 100%
-  );
-  --gradient-glass: linear-gradient(
-    135deg,
-    rgba(255, 255, 255, 0.25),
-    rgba(255, 255, 255, 0.1)
-  );
-  --gradient-mesh: radial-gradient(
-    at 40% 20%,
-    hsl(210 100% 55% / 0.3) 0px,
-    transparent 50%
-  ),
-  radial-gradient(
-    at 80% 0%,
-    hsl(220 90% 15% / 0.2) 0px,
-    transparent 50%
-  ),
-  radial-gradient(
-    at 0% 50%,
-    hsl(210 100% 65% / 0.2) 0px,
-    transparent 50%
-  );
+    /* Premium gradients */
+    --gradient-primary: linear-gradient(
+      135deg,
+      hsl(220 90% 15%),
+      hsl(220 90% 25%)
+    );
+    --gradient-accent: linear-gradient(
+      135deg,
+      hsl(210 100% 55%),
+      hsl(210 100% 65%)
+    );
+    --gradient-hero: linear-gradient(
+      135deg,
+      hsl(220 90% 15%) 0%,
+      hsl(220 90% 25%) 40%,
+      hsl(210 100% 55%) 100%
+    );
+    --gradient-card: linear-gradient(
+      145deg,
+      hsl(0 0% 100%) 0%,
+      hsl(220 14% 99%) 100%
+    );
+    --gradient-glass: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.25),
+      rgba(255, 255, 255, 0.1)
+    );
+    --gradient-mesh: radial-gradient(
+        at 40% 20%,
+        hsl(210 100% 55% / 0.3) 0px,
+        transparent 50%
+      ),
+      radial-gradient(at 80% 0%, hsl(220 90% 15% / 0.2) 0px, transparent 50%),
+      radial-gradient(at 0% 50%, hsl(210 100% 65% / 0.2) 0px, transparent 50%);
 
     /* Enhanced shadows */
     --shadow-sm: 0 1px 3px hsl(220 13% 18% / 0.08);
@@ -131,11 +123,11 @@
   }
 
   .btn-primary {
-    @apply btn-automotive bg-primary text-primary-foreground shadow-lg hover:bg-primary-hover hover:shadow-xl transform hover:-translate-y-0.5;
+    @apply btn-automotive bg-primary text-white shadow-lg hover:bg-primary-hover hover:shadow-xl hover:text-white transform hover:-translate-y-0.5;
   }
 
   .btn-accent {
-    @apply btn-automotive bg-accent text-accent-foreground shadow-lg hover:bg-accent-hover hover:shadow-accent transform hover:-translate-y-0.5;
+    @apply btn-automotive bg-accent text-white shadow-lg hover:bg-accent-hover hover:shadow-accent hover:text-white transform hover:-translate-y-0.5;
   }
 
   .btn-secondary {
@@ -177,12 +169,12 @@
   }
 
   .hero-modern::before {
-    content: '';
-    @apply absolute inset-0 bg-gradient-mesh opacity-70;
+    content: "";
+    @apply absolute inset-0 bg-gradient-to-r from-black/20 via-transparent to-transparent opacity-70;
   }
 
   .hero-modern::after {
-    content: '';
+    content: "";
     @apply absolute inset-0 bg-gradient-to-t from-black/10 via-transparent to-transparent;
   }
 
@@ -228,6 +220,22 @@
     animation: fadeInUp 0.6s ease-out;
   }
 
+  .animate-headlight-beam {
+    animation: headlightBeam 3s ease-in-out infinite;
+  }
+
+  .animate-led-glow {
+    animation: ledGlow 2s ease-in-out infinite;
+  }
+
+  .animate-automotive-shine {
+    animation: automotiveShine 2s ease-in-out infinite;
+  }
+
+  .animate-product-hover {
+    animation: productHover 0.6s ease-out;
+  }
+
   /* Enhanced hover effects */
   .hover-lift {
     @apply transition-all duration-300 hover:-translate-y-1 hover:shadow-lg;
@@ -235,6 +243,14 @@
 
   .hover-glow {
     @apply transition-all duration-300 hover:shadow-accent/30;
+  }
+
+  .hover-automotive {
+    @apply transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-accent/20;
+  }
+
+  .hover-led-effect {
+    @apply transition-all duration-300 hover:animate-led-glow;
   }
 
   /* Glass morphism effects */
@@ -309,6 +325,50 @@
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+@keyframes headlightBeam {
+  0%,
+  100% {
+    opacity: 0.3;
+    transform: scaleX(0.8);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scaleX(1.2);
+  }
+}
+
+@keyframes ledGlow {
+  0%,
+  100% {
+    box-shadow: 0 0 5px hsl(195 100% 50% / 0.5);
+  }
+  50% {
+    box-shadow: 0 0 20px hsl(195 100% 50% / 0.8),
+      0 0 30px hsl(195 100% 50% / 0.4);
+  }
+}
+
+@keyframes automotiveShine {
+  0% {
+    transform: translateX(-100%) skewX(-12deg);
+  }
+  100% {
+    transform: translateX(200%) skewX(-12deg);
+  }
+}
+
+@keyframes productHover {
+  0% {
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    transform: translateY(-5px) scale(1.02);
+  }
+  100% {
+    transform: translateY(-3px) scale(1.01);
   }
 }
 

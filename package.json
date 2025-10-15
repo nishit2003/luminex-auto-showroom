@@ -1,14 +1,20 @@
 {
-  "name": "vite_react_shadcn_ts",
-  "private": true,
-  "version": "0.0.0",
+  "name": "luminex-autotech-showroom",
+  "description": "Premium automotive lighting solutions showroom for Luminex AutoTech",
+  "version": "1.0.0",
+  "author": "Luminex AutoTech",
+  "homepage": "https://luminex-autotech.com",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "build:dev": "vite build --mode development",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "deploy": "./deploy.sh",
+    "deploy:vercel": "vercel --prod",
+    "deploy:netlify": "netlify deploy --prod --dir=dist",
+    "analyze": "vite-bundle-analyzer"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",

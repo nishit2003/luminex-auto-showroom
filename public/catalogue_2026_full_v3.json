@@ -1,0 +1,507 @@
+[
+  {
+    "code": "GS-101",
+    "name": "Tata Head Light Assy .",
+    "description": "1312"
+  },
+  {
+    "code": "GS-102",
+    "name": "Tata Head Light Assy .",
+    "description": "1312 MFR"
+  },
+  {
+    "code": "GS-104",
+    "name": "Tata Head Light Assy .",
+    "description": "1312 T ri Colour"
+  },
+  {
+    "code": "GS-105",
+    "name": "Tata Head Light Assy .",
+    "description": "1312 with Indicator"
+  },
+  {
+    "code": "GS-103",
+    "name": "Tata Head Light Assy .",
+    "description": "1312 White DRL"
+  },
+  {
+    "code": "GS-106",
+    "name": "Tata Head Light Assy .",
+    "description": "709"
+  },
+  {
+    "code": "GS-107",
+    "name": "Tata Head Light Assy .",
+    "description": "709 MFR"
+  },
+  {
+    "code": "GS-108",
+    "name": "Tata Head Light Assy .",
+    "description": "709 White DRL"
+  },
+  {
+    "code": "GS-109",
+    "name": "Tata Head Light Assy .",
+    "description": "709 T ri Colour"
+  },
+  {
+    "code": "GS-110",
+    "name": "Tata Head Light Assy .",
+    "description": "709 with Indicator"
+  },
+  {
+    "code": "GS-111",
+    "name": "Tata Head Light Assy .",
+    "description": "407"
+  },
+  {
+    "code": "GS-112",
+    "name": "Tata Head Light Assy .",
+    "description": "407 MFR"
+  },
+  {
+    "code": "GS-113",
+    "name": "Tata Head Light Assy .",
+    "description": "407 White DRL"
+  },
+  {
+    "code": "GS-114",
+    "name": "Tata Head Light Assy .",
+    "description": "407 T ri Colour"
+  },
+  {
+    "code": "GS-115",
+    "name": "Tata Head Light Assy .",
+    "description": "407 with Indicator"
+  },
+  {
+    "code": "GS-120",
+    "name": "Tata Head Light Assy .",
+    "description": "2416 TC Tri Colour"
+  },
+  {
+    "code": "GS-121",
+    "name": "Tata Head Light Assy .",
+    "description": "709 MFR"
+  },
+  {
+    "code": "GS-123",
+    "name": "Head Light Assy .",
+    "description": "Leyland"
+  },
+  {
+    "code": "GS-125",
+    "name": "Shield Beam",
+    "description": "Leyland  7\""
+  },
+  {
+    "code": "GS-126",
+    "name": "Shield Beam",
+    "description": "Leyland T ri Colour 7\""
+  },
+  {
+    "code": "GS-127",
+    "name": "Head Light Assy .",
+    "description": "Canter"
+  },
+  {
+    "code": "GS-128",
+    "name": "Shield Beam",
+    "description": "Canter"
+  },
+  {
+    "code": "GS-116",
+    "name": "Head Light Assy .",
+    "description": "Leyland Cargo O/M"
+  },
+  {
+    "code": "GS-117",
+    "name": "TATA Head Light Assy .",
+    "description": "2416 TC"
+  },
+  {
+    "code": "GS-118",
+    "name": "Tata Head Light Assy .",
+    "description": "2416 TC MFR"
+  },
+  {
+    "code": "GS-119",
+    "name": "Tata Head Light Assy .",
+    "description": "2416 TC White DRL"
+  },
+  {
+    "code": "GS-124",
+    "name": "Head Light Assy .",
+    "description": "Leyland T ri Colour"
+  },
+  {
+    "code": "GS-122",
+    "name": "Head Light Assy .",
+    "description": "Tata ACE"
+  },
+  {
+    "code": "GS-129",
+    "name": "Head Light Assy .",
+    "description": "Bolero O/M"
+  },
+  {
+    "code": "GS-130",
+    "name": "Head Light Assy .",
+    "description": "Bolero O/M T ri Colour"
+  },
+  {
+    "code": "GS-135",
+    "name": "Mini Cute 30 LED",
+    "description": null
+  },
+  {
+    "code": "GS-136",
+    "name": "Mini Cute",
+    "description": "30 LED with DRL"
+  },
+  {
+    "code": "GS-138",
+    "name": "Universal Fog Lamp 24 LED",
+    "description": "Flat Body Sheet Metal"
+  },
+  {
+    "code": "GS-141",
+    "name": "Universal Fog Lamp 14 LED",
+    "description": "Flat Body Sheet Metal"
+  },
+  {
+    "code": "GS-142",
+    "name": "Universal Fog Lamp 32 LED",
+    "description": "Flat Body Sheet Metal"
+  },
+  {
+    "code": "GS-143",
+    "name": "Universal Fog Lamp 12 LED",
+    "description": "Bullet Aluminum Body"
+  },
+  {
+    "code": "GS-131",
+    "name": "Head Light Assy .",
+    "description": "Swaraj Mazda"
+  },
+  {
+    "code": "GS-132",
+    "name": "Mini Boss",
+    "description": "30 LED with DRL"
+  },
+  {
+    "code": "GS-133",
+    "name": "Mahindra 3 Pin",
+    "description": "30 LED with DRL"
+  },
+  {
+    "code": "GS-134",
+    "name": "High Power",
+    "description": "30 LED with DRL"
+  },
+  {
+    "code": "GS-139",
+    "name": "Universal Fog Lamp 18 LED",
+    "description": "Flat Body Sheet Metal"
+  },
+  {
+    "code": "GS-137",
+    "name": "Mini Super Flat Body",
+    "description": "30 LED with DRL"
+  },
+  {
+    "code": "GS-140",
+    "name": "Universal Fog Lamp 18 LED",
+    "description": "with DRL Flat Body Sheet Metal"
+  },
+  {
+    "code": "GS-144",
+    "name": "Universal Fog Lamp 25 LED DRL",
+    "description": "Flat Body Sheet Metal"
+  },
+  {
+    "code": "GS-145",
+    "name": "Universal Fog Lamp Super Cute",
+    "description": "Aluminum Body 6 in 1"
+  },
+  {
+    "code": "GS-150",
+    "name": "Swift 4 LED",
+    "description": null
+  },
+  {
+    "code": "GS-151",
+    "name": "Swift 4 LED",
+    "description": "DRL (All Colour Available )"
+  },
+  {
+    "code": "GS-153",
+    "name": "Swift 8 LED",
+    "description": null
+  },
+  {
+    "code": "GS-156",
+    "name": "Fog Lamp Bolero",
+    "description": "4 LED"
+  },
+  {
+    "code": "GS-157",
+    "name": "Fog Lamp Bolero 4 LED",
+    "description": "DRL (All Colour Available)"
+  },
+  {
+    "code": "GS-158",
+    "name": "Fog Lamp Bolero 6 LED",
+    "description": null
+  },
+  {
+    "code": "GS-146",
+    "name": "Universal Fog Lamp 22 LED",
+    "description": "Aluminum Body"
+  },
+  {
+    "code": "GS-147",
+    "name": "Universal Fog Lamp 16 LED",
+    "description": "Aluminum Body"
+  },
+  {
+    "code": "GS-148",
+    "name": "Universal Fog Lamp 16 LED",
+    "description": "Mini Square Aluminum Body"
+  },
+  {
+    "code": "GS-149",
+    "name": "Fog LAMP 709",
+    "description": "with Bracket"
+  },
+  {
+    "code": "GS-154",
+    "name": "Swift 8 LED with Dipper",
+    "description": null
+  },
+  {
+    "code": "GS-152",
+    "name": "Swift 6 LED",
+    "description": null
+  },
+  {
+    "code": "GS-155",
+    "name": "Swift 4 LED",
+    "description": "6 in 1"
+  },
+  {
+    "code": "GS-159",
+    "name": "Fog Lamp Bolero 8 LED",
+    "description": null
+  },
+  {
+    "code": "GS-160",
+    "name": "Fog Lamp Bolero 4 LED",
+    "description": "6 in 1"
+  },
+  {
+    "code": "GS-165",
+    "name": "Fog Lamp ECCO 4 LED",
+    "description": "6 in 1"
+  },
+  {
+    "code": "GS-166",
+    "name": "Fog Lamp Etios 4 LED",
+    "description": "DRL (All Colour Available)"
+  },
+  {
+    "code": "GS-168",
+    "name": "Universal Fog Lamp Hunter",
+    "description": "4 LED 90 mm"
+  },
+  {
+    "code": "GS-171",
+    "name": "Universal Fog Lamp Hunter",
+    "description": "8 LED 90 mm"
+  },
+  {
+    "code": "GS-172",
+    "name": "Universal Fog Lamp Hunter",
+    "description": "8 LED 90 mm with Dipper"
+  },
+  {
+    "code": "GS-173",
+    "name": "Universal Fog Lamp Hunter",
+    "description": "4 LED 90 mm 6 in 1"
+  },
+  {
+    "code": "GS-161",
+    "name": "Fog Lamp ECCO 4 LED",
+    "description": null
+  },
+  {
+    "code": "GS-162",
+    "name": "Fog Lamp ECCO 4 LED",
+    "description": "DRL (All Colour Available)"
+  },
+  {
+    "code": "GS-163",
+    "name": "Fog Lamp ECCO 6 LED",
+    "description": null
+  },
+  {
+    "code": "GS-164",
+    "name": "Fog Lamp ECCO 8 LED",
+    "description": null
+  },
+  {
+    "code": "GS-169",
+    "name": "Universal Fog Lamp Hunter 4 LED",
+    "description": "90 mm DRL (All Colour Available)"
+  },
+  {
+    "code": "GS-167",
+    "name": "Fog Lamp Etios 8 LED",
+    "description": null
+  },
+  {
+    "code": "GS-170",
+    "name": "Universal Fog Lamp Hunter",
+    "description": "6 LED 90 mm"
+  },
+  {
+    "code": "GS-174",
+    "name": "Universal Fog Lamp",
+    "description": "8 LED"
+  },
+  {
+    "code": "GS-175",
+    "name": "Universal Fog Lamp",
+    "description": "8 LED 125mm w/o DRL"
+  },
+  {
+    "code": "GS-180",
+    "name": "Universal Fog Lamp Thar",
+    "description": "8 LED 6 in 1"
+  },
+  {
+    "code": "GS-181",
+    "name": "Universal Fog Lamp",
+    "description": "Super Thar 8 LED"
+  },
+  {
+    "code": "GS-183",
+    "name": "Spot Lite 4 LED",
+    "description": "6 in 1"
+  },
+  {
+    "code": "GS-186",
+    "name": "4\" Cute Fan",
+    "description": null
+  },
+  {
+    "code": "GS-187",
+    "name": "Twin Fan 4\"",
+    "description": "with Mobile Charger"
+  },
+  {
+    "code": "GS-176",
+    "name": "Universal Fog Lamp 8 LED 125mm",
+    "description": "with DRL (All Colour Available)"
+  },
+  {
+    "code": "GS-177",
+    "name": "Mini Boss",
+    "description": "30 LED with DRL"
+  },
+  {
+    "code": "GS-178",
+    "name": "Universal Fog Lamp Thar",
+    "description": "8 LED W/o DRL"
+  },
+  {
+    "code": "GS-179",
+    "name": "Universal Fog Lamp Thar 8 LED",
+    "description": "with DRL (All Colour Available)"
+  },
+  {
+    "code": "GS-184",
+    "name": "Spot Lite 6 LED",
+    "description": "6 in 1"
+  },
+  {
+    "code": "GS-182",
+    "name": "Universal Fog Lamp Super Thar 8 LED",
+    "description": "with DRL (All Colour Available)"
+  },
+  {
+    "code": "GS-185",
+    "name": "Universal Fog Lamp",
+    "description": "Mini Thar 6 LED FAN 10\" COOL COOL"
+  },
+  {
+    "code": "GS-188",
+    "name": null,
+    "description": null
+  },
+  {
+    "code": "GS-189",
+    "name": "DC Converter with USB 65W",
+    "description": "12/24V DC"
+  },
+  {
+    "code": "GS-195",
+    "name": "Dual USB Charger 12/24V",
+    "description": null
+  },
+  {
+    "code": "GS-196",
+    "name": "Type A & Type C",
+    "description": "USB Charger 12/24V"
+  },
+  {
+    "code": "GS-198",
+    "name": "DC Converter with USB 100W",
+    "description": "12/24V DC"
+  },
+  {
+    "code": "GS-191",
+    "name": "Mini Converter  40W",
+    "description": "12/24V DC"
+  },
+  {
+    "code": "GS-192",
+    "name": "Mini Converter Dual USB",
+    "description": "12/24V DC 100W"
+  },
+  {
+    "code": "GS-193",
+    "name": "Micro Converter with USB",
+    "description": "40W    12/24V"
+  },
+  {
+    "code": "GS-194",
+    "name": "Mobile Stand with Charger",
+    "description": null
+  },
+  {
+    "code": "GS-199",
+    "name": "Super USB Charger",
+    "description": null
+  },
+  {
+    "code": "GS-197",
+    "name": "King Kong USB Carger",
+    "description": null
+  },
+  {
+    "code": "GS-190",
+    "name": "DC Converter w/o USB 65W",
+    "description": "12/24V DC"
+  },
+  {
+    "code": "GS-200",
+    "name": "DC Converter 120W",
+    "description": "with Cabin light & C T ype Port"
+  },
+  {
+    "code": "GS-201",
+    "name": "USB Fast Charger 20W",
+    "description": "with A & C T ype Port"
+  }
+]

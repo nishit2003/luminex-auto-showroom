@@ -19,22 +19,18 @@ import {
   Plus,
   Minus,
   X,
+  Home,
+  Package,
+  Info,
 } from "lucide-react";
 import { useEnquiryStore } from "@/stores/enquiryStore";
 import { getProductByCode } from "@/data/products";
 
 interface HeaderProps {
-  activeCategory: string;
-  onCategoryChange: (category: string) => void;
-  categories: string[];
+  onTabChange: (tab: string) => void;
 }
 
-export function Header({
-  activeCategory,
-  onCategoryChange,
-  categories,
-}: HeaderProps) {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+export function Header({ onTabChange }: HeaderProps) {
   const { items, removeItem, clearAll } = useEnquiryStore();
 
   // Group items by product code and count quantities
@@ -148,246 +144,276 @@ export function Header({
               </div>
             </div>
 
-            {/* Enhanced Desktop Navigation */}
+            {/* Desktop Navigation - Expanded */}
             <nav className="hidden lg:flex items-center gap-2">
-              {categories.map((category) => (
-                <Button
-                  key={category}
-                  variant={activeCategory === category ? "default" : "ghost"}
-                  size="sm"
-                  onClick={() => {
-                    onCategoryChange(category);
-                    document
-                      .getElementById("products-section")
-                      ?.scrollIntoView({
-                        behavior: "smooth",
-                      });
-                  }}
-                  className={`px-4 py-2 rounded-xl transition-all duration-300 ${
-                    activeCategory === category
-                      ? "btn-primary shadow-lg"
-                      : "hover:bg-secondary/60 hover:text-foreground hover:shadow-md"
-                  }`}
-                >
-                  {category}
-                </Button>
-              ))}
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => onTabChange("home")}
+                className="px-4 py-2 rounded-xl transition-all duration-300 hover:bg-secondary/60 hover:text-foreground hover:shadow-md"
+              >
+                <Home className="h-4 w-4 mr-2" />
+                Home
+              </Button>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => onTabChange("products")}
+                className="px-4 py-2 rounded-xl transition-all duration-300 hover:bg-secondary/60 hover:text-foreground hover:shadow-md"
+              >
+                <Package className="h-4 w-4 mr-2" />
+                Products
+              </Button>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => onTabChange("about")}
+                className="px-4 py-2 rounded-xl transition-all duration-300 hover:bg-secondary/60 hover:text-foreground hover:shadow-md"
+              >
+                <Info className="h-4 w-4 mr-2" />
+                About
+              </Button>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => onTabChange("contact")}
+                className="px-4 py-2 rounded-xl transition-all duration-300 hover:bg-secondary/60 hover:shadow-md"
+              >
+                <Mail className="h-4 w-4 mr-2" />
+                Contact
+              </Button>
             </nav>
 
-            {/* Enhanced Mobile Menu & Cart */}
-            <div className="flex items-center gap-3">
-              {/* Enhanced Enquiry Cart */}
-              <Sheet>
-                <SheetTrigger asChild>
+            {/* Mobile Navigation - Hamburger Menu */}
+            <Sheet>
+              <SheetTrigger asChild>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="lg:hidden px-4 py-2 rounded-xl transition-all duration-300 hover:bg-secondary/60 hover:text-foreground hover:shadow-md"
+                >
+                  <Menu className="h-4 w-4 mr-2" />
+                  <span className="hidden sm:inline">Menu</span>
+                </Button>
+              </SheetTrigger>
+              <SheetContent side="right" className="w-[300px] sm:w-[400px]">
+                <SheetHeader>
+                  <SheetTitle className="text-xl font-bold text-gradient-primary">
+                    Navigation
+                  </SheetTitle>
+                </SheetHeader>
+                <nav className="mt-6 space-y-2">
                   <Button
-                    variant="outline"
-                    size="sm"
-                    className="relative h-10 px-4 rounded-xl border-accent/30 hover:border-accent/50 hover:bg-accent/5 transition-all duration-200"
+                    variant="ghost"
+                    className="w-full justify-start h-12 text-base rounded-xl transition-all duration-200 hover:bg-secondary/60 hover:text-foreground"
+                    onClick={() => {
+                      onTabChange("home");
+                    }}
                   >
-                    <ShoppingCart className="h-4 w-4 mr-2" />
-                    <span className="text-sm font-medium">Enquiry</span>
-                    {totalItems > 0 && (
-                      <Badge
-                        variant="destructive"
-                        className="absolute -top-2 -right-2 h-6 w-6 rounded-full p-0 flex items-center justify-center text-xs font-bold animate-pulse"
-                      >
-                        {totalItems}
-                      </Badge>
-                    )}
+                    <Home className="h-4 w-4 mr-3" />
+                    Home
                   </Button>
-                </SheetTrigger>
-                <SheetContent className="w-[400px] sm:w-[540px]">
-                  <SheetHeader>
-                    <div className="flex items-center justify-between">
-                      <SheetTitle className="text-xl font-bold text-gradient-primary">
-                        Enquiry Cart
-                      </SheetTitle>
-                      {totalItems > 0 && (
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          onClick={clearAll}
-                          className="text-destructive hover:text-destructive/80 hover:bg-destructive/10"
-                        >
-                          <Trash2 className="h-4 w-4 mr-1" />
-                          Clear All
-                        </Button>
-                      )}
-                    </div>
-                  </SheetHeader>
+                  <Button
+                    variant="ghost"
+                    className="w-full justify-start h-12 text-base rounded-xl transition-all duration-200 hover:bg-secondary/60 hover:text-foreground"
+                    onClick={() => {
+                      onTabChange("products");
+                    }}
+                  >
+                    <Package className="h-4 w-4 mr-3" />
+                    Products
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    className="w-full justify-start h-12 text-base rounded-xl transition-all duration-200 hover:bg-secondary/60 hover:text-foreground"
+                    onClick={() => {
+                      onTabChange("about");
+                    }}
+                  >
+                    <Info className="h-4 w-4 mr-3" />
+                    About
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    className="w-full justify-start h-12 text-base rounded-xl transition-all duration-200 hover:bg-secondary/60 hover:text-foreground"
+                    onClick={() => {
+                      onTabChange("contact");
+                    }}
+                  >
+                    <Mail className="h-4 w-4 mr-3" />
+                    Contact
+                  </Button>
+                </nav>
+              </SheetContent>
+            </Sheet>
 
-                  <div className="mt-6">
-                    {totalItems === 0 ? (
-                      <div className="text-center py-12">
-                        <div className="bg-secondary/50 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
-                          <ShoppingCart className="h-8 w-8 text-muted-foreground" />
-                        </div>
-                        <p className="text-muted-foreground text-lg font-medium">
-                          No products added to enquiry
-                        </p>
-                        <p className="text-sm text-muted-foreground mt-2">
-                          Start browsing our products to add them to your
-                          enquiry
-                        </p>
-                      </div>
-                    ) : (
-                      <div className="space-y-4">
-                        {/* Cart Summary */}
-                        <div className="bg-accent/5 rounded-xl p-4 border border-accent/20">
-                          <div className="flex items-center justify-between text-sm">
-                            <span className="text-muted-foreground">
-                              Total Items:
-                            </span>
-                            <span className="font-semibold text-accent">
-                              {totalItems}
-                            </span>
-                          </div>
-                          <div className="flex items-center justify-between text-sm mt-1">
-                            <span className="text-muted-foreground">
-                              Unique Products:
-                            </span>
-                            <span className="font-semibold text-accent">
-                              {uniqueItems.length}
-                            </span>
-                          </div>
-                        </div>
-
-                        {/* Product List */}
-                        <div className="space-y-3 max-h-96 overflow-y-auto">
-                          {uniqueItems.map((item) => (
-                            <div
-                              key={item.code}
-                              className="flex items-center gap-3 p-3 bg-secondary/30 rounded-lg border border-border/50"
-                            >
-                              {/* Product Info */}
-                              <div className="flex-1 min-w-0">
-                                <div className="flex items-center justify-between mb-1">
-                                  <p className="font-semibold text-sm text-foreground truncate">
-                                    {item.name}
-                                  </p>
-                                  <Button
-                                    variant="ghost"
-                                    size="sm"
-                                    onClick={() => removeItem(item.code)}
-                                    className="h-6 w-6 p-0 text-muted-foreground hover:text-destructive"
-                                  >
-                                    <X className="h-3 w-3" />
-                                  </Button>
-                                </div>
-                                <p className="text-xs text-muted-foreground mb-2">
-                                  Code: {item.code}
-                                </p>
-
-                                {/* Quantity Controls */}
-                                <div className="flex items-center gap-2">
-                                  <Button
-                                    variant="outline"
-                                    size="sm"
-                                    onClick={() =>
-                                      handleQuantityChange(
-                                        item.code,
-                                        item.quantity - 1
-                                      )
-                                    }
-                                    className="h-6 w-6 p-0"
-                                  >
-                                    <Minus className="h-3 w-3" />
-                                  </Button>
-                                  <span className="text-sm font-medium min-w-[2rem] text-center">
-                                    {item.quantity}
-                                  </span>
-                                  <Button
-                                    variant="outline"
-                                    size="sm"
-                                    onClick={() =>
-                                      handleQuantityChange(
-                                        item.code,
-                                        item.quantity + 1
-                                      )
-                                    }
-                                    className="h-6 w-6 p-0"
-                                  >
-                                    <Plus className="h-3 w-3" />
-                                  </Button>
-                                </div>
-                              </div>
-                            </div>
-                          ))}
-                        </div>
-
-                        {/* Action Buttons */}
-                        <div className="space-y-3 pt-4 border-t border-border/50">
-                          <Button className="w-full btn-accent h-12 text-base font-semibold">
-                            <Mail className="h-4 w-4 mr-2" />
-                            Send Enquiry ({totalItems} items)
-                          </Button>
-                          <Button
-                            variant="outline"
-                            onClick={() => {
-                              // Scroll to contact section
-                              document
-                                .getElementById("contact-section")
-                                ?.scrollIntoView({
-                                  behavior: "smooth",
-                                });
-                            }}
-                            className="w-full h-10"
-                          >
-                            Continue Shopping
-                          </Button>
-                        </div>
-                      </div>
+            {/* Enhanced Enquiry Cart */}
+            {/* Enhanced Enquiry Cart */}
+            <Sheet>
+              <SheetTrigger asChild>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="relative h-10 px-4 rounded-xl border-accent/30 hover:border-accent/50 hover:bg-accent/5 transition-all duration-200"
+                >
+                  <ShoppingCart className="h-4 w-4 mr-2" />
+                  <span className="text-sm font-medium">Enquiry</span>
+                  {totalItems > 0 && (
+                    <Badge
+                      variant="destructive"
+                      className="absolute -top-2 -right-2 h-6 w-6 rounded-full p-0 flex items-center justify-center text-xs font-bold animate-pulse"
+                    >
+                      {totalItems}
+                    </Badge>
+                  )}
+                </Button>
+              </SheetTrigger>
+              <SheetContent className="w-[400px] sm:w-[540px]">
+                <SheetHeader>
+                  <div className="flex items-center justify-between">
+                    <SheetTitle className="text-xl font-bold text-gradient-primary">
+                      Enquiry Cart
+                    </SheetTitle>
+                    {totalItems > 0 && (
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={clearAll}
+                        className="text-destructive hover:text-destructive/80 hover:bg-destructive/10"
+                      >
+                        <Trash2 className="h-4 w-4 mr-1" />
+                        Clear All
+                      </Button>
                     )}
                   </div>
-                </SheetContent>
-              </Sheet>
+                </SheetHeader>
 
-              {/* Enhanced Mobile Menu */}
-              <Sheet open={isMenuOpen} onOpenChange={setIsMenuOpen}>
-                <SheetTrigger asChild>
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    className="lg:hidden h-10 px-4 rounded-xl border-border hover:bg-secondary/50 transition-all duration-200"
-                  >
-                    <Menu className="h-4 w-4" />
-                  </Button>
-                </SheetTrigger>
-                <SheetContent side="left" className="w-[300px] sm:w-[400px]">
-                  <SheetHeader>
-                    <SheetTitle className="text-xl font-bold text-gradient-primary">
-                      Categories
-                    </SheetTitle>
-                  </SheetHeader>
-                  <nav className="mt-6 space-y-2">
-                    {categories.map((category) => (
-                      <Button
-                        key={category}
-                        variant={
-                          activeCategory === category ? "default" : "ghost"
-                        }
-                        className={`w-full justify-start h-12 text-base rounded-xl transition-all duration-200 ${
-                          activeCategory === category
-                            ? "btn-primary shadow-lg"
-                            : "hover:bg-secondary/60 hover:text-foreground"
-                        }`}
-                        onClick={() => {
-                          onCategoryChange(category);
-                          setIsMenuOpen(false);
-                          document
-                            .getElementById("products-section")
-                            ?.scrollIntoView({
-                              behavior: "smooth",
-                            });
-                        }}
-                      >
-                        {category}
-                      </Button>
-                    ))}
-                  </nav>
-                </SheetContent>
-              </Sheet>
-            </div>
+                <div className="mt-6">
+                  {totalItems === 0 ? (
+                    <div className="text-center py-12">
+                      <div className="bg-secondary/50 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                        <ShoppingCart className="h-8 w-8 text-muted-foreground" />
+                      </div>
+                      <p className="text-muted-foreground text-lg font-medium">
+                        No products added to enquiry
+                      </p>
+                      <p className="text-sm text-muted-foreground mt-2">
+                        Start browsing our products to add them to your enquiry
+                      </p>
+                    </div>
+                  ) : (
+                    <div className="space-y-4">
+                      {/* Cart Summary */}
+                      <div className="bg-accent/5 rounded-xl p-4 border border-accent/20">
+                        <div className="flex items-center justify-between text-sm">
+                          <span className="text-muted-foreground">
+                            Total Items:
+                          </span>
+                          <span className="font-semibold text-accent">
+                            {totalItems}
+                          </span>
+                        </div>
+                        <div className="flex items-center justify-between text-sm mt-1">
+                          <span className="text-muted-foreground">
+                            Unique Products:
+                          </span>
+                          <span className="font-semibold text-accent">
+                            {uniqueItems.length}
+                          </span>
+                        </div>
+                      </div>
+
+                      {/* Product List */}
+                      <div className="space-y-3 max-h-96 overflow-y-auto">
+                        {uniqueItems.map((item) => (
+                          <div
+                            key={item.code}
+                            className="flex items-center gap-3 p-3 bg-secondary/30 rounded-lg border border-border/50"
+                          >
+                            {/* Product Info */}
+                            <div className="flex-1 min-w-0">
+                              <div className="flex items-center justify-between mb-1">
+                                <p className="font-semibold text-sm text-foreground truncate">
+                                  {item.name}
+                                </p>
+                                <Button
+                                  variant="ghost"
+                                  size="sm"
+                                  onClick={() => removeItem(item.code)}
+                                  className="h-6 w-6 p-0 text-muted-foreground hover:text-destructive"
+                                >
+                                  <X className="h-3 w-3" />
+                                </Button>
+                              </div>
+                              <p className="text-xs text-muted-foreground mb-2">
+                                Code: {item.code}
+                              </p>
+
+                              {/* Quantity Controls */}
+                              <div className="flex items-center gap-2">
+                                <Button
+                                  variant="outline"
+                                  size="sm"
+                                  onClick={() =>
+                                    handleQuantityChange(
+                                      item.code,
+                                      item.quantity - 1
+                                    )
+                                  }
+                                  className="h-6 w-6 p-0"
+                                >
+                                  <Minus className="h-3 w-3" />
+                                </Button>
+                                <span className="text-sm font-medium min-w-[2rem] text-center">
+                                  {item.quantity}
+                                </span>
+                                <Button
+                                  variant="outline"
+                                  size="sm"
+                                  onClick={() =>
+                                    handleQuantityChange(
+                                      item.code,
+                                      item.quantity + 1
+                                    )
+                                  }
+                                  className="h-6 w-6 p-0"
+                                >
+                                  <Plus className="h-3 w-3" />
+                                </Button>
+                              </div>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+
+                      {/* Action Buttons */}
+                      <div className="space-y-3 pt-4 border-t border-border/50">
+                        <Button
+                          className="w-full btn-accent h-12 text-base font-semibold"
+                          onClick={() => {
+                            // Switch to contact tab to send enquiry
+                            onTabChange("contact");
+                          }}
+                        >
+                          <Mail className="h-4 w-4 mr-2" />
+                          Send Enquiry ({totalItems} items)
+                        </Button>
+                        <Button
+                          variant="outline"
+                          onClick={() => {
+                            // Switch to products tab to continue shopping
+                            onTabChange("products");
+                          }}
+                          className="w-full h-10"
+                        >
+                          Continue Shopping
+                        </Button>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </SheetContent>
+            </Sheet>
           </div>
         </div>
       </div>

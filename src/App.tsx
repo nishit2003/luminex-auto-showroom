@@ -11,6 +11,7 @@ import { ContactSection } from "@/components/ContactSection";
 import { Footer } from "@/components/Footer";
 import { ModernHero } from "@/components/ModernHero";
 import { ModernFeatures } from "@/components/ModernFeatures";
+import { HeadlightShowcase } from "@/components/HeadlightShowcase";
 import { PRODUCTS, CATEGORIES, getProductsByCategory } from "@/data/products";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
@@ -45,6 +46,7 @@ import {
 const queryClient = new QueryClient();
 
 function HomePage() {
+  const [activeTab, setActiveTab] = useState("home");
   const [activeCategory, setActiveCategory] = useState("All");
   const [searchQuery, setSearchQuery] = useState("");
   const [sortBy, setSortBy] = useState("name");
@@ -160,44 +162,24 @@ function HomePage() {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <Header
-        activeCategory={activeCategory}
-        onCategoryChange={setActiveCategory}
-        categories={CATEGORIES}
-      />
+      <Header onTabChange={setActiveTab} />
 
       <main className="flex-1">
-        {/* Modern Tabbed Interface */}
-        <div className="container mx-auto px-4 py-8">
-          <Tabs defaultValue="home" className="w-full">
-            <TabsList className="grid w-full grid-cols-4 mb-8">
-              <TabsTrigger value="home" className="flex items-center gap-2">
-                <Home className="h-4 w-4" />
-                Home
-              </TabsTrigger>
-              <TabsTrigger value="products" className="flex items-center gap-2">
-                <Package className="h-4 w-4" />
-                Products
-              </TabsTrigger>
-              <TabsTrigger value="about" className="flex items-center gap-2">
-                <Info className="h-4 w-4" />
-                About
-              </TabsTrigger>
-              <TabsTrigger value="contact" className="flex items-center gap-2">
-                <Mail className="h-4 w-4" />
-                Contact
-              </TabsTrigger>
-            </TabsList>
-
-            {/* Home Tab */}
+        {/* Tab Content Container */}
+        <div className="container mx-auto px-4 pt-8 pb-4">
+          <Tabs
+            value={activeTab}
+            onValueChange={setActiveTab}
+            className="w-full"
+          >
             <TabsContent value="home" className="space-y-20">
               {/* Modern Hero Section */}
-              <ModernHero 
+              <ModernHero
                 onBrowseProducts={() => {
-                  const productsTab = document.querySelector(
-                    '[data-value="products"]'
-                  ) as HTMLElement;
-                  productsTab?.click();
+                  // Switch to products tab using React state
+                  setActiveTab("products");
+                  // Scroll to top to ensure user sees the products section
+                  window.scrollTo({ top: 0, behavior: "smooth" });
                 }}
                 onDownloadCatalog={() => {
                   const link = document.createElement("a");
@@ -209,6 +191,20 @@ function HomePage() {
 
               {/* Modern Features Section */}
               <ModernFeatures />
+
+              {/* Headlight Showcase Section */}
+              <HeadlightShowcase
+                onViewProducts={() => {
+                  setActiveTab("products");
+                  setActiveCategory("Head Lights");
+                  window.scrollTo({ top: 0, behavior: "smooth" });
+                }}
+                onAddToEnquiry={(product) => {
+                  // Add product to enquiry
+                  console.log("Adding to enquiry:", product);
+                  // You can integrate with your enquiry store here
+                }}
+              />
 
               {/* Product Stats Preview */}
               <section className="py-16">
@@ -250,10 +246,10 @@ function HomePage() {
                     <Button
                       className="btn-accent text-lg px-8 py-3 h-12 font-semibold"
                       onClick={() => {
-                        const productsTab = document.querySelector(
-                          '[data-value="products"]'
-                        ) as HTMLElement;
-                        productsTab?.click();
+                        // Switch to products tab using React state
+                        setActiveTab("products");
+                        // Scroll to top to ensure user sees the products section
+                        window.scrollTo({ top: 0, behavior: "smooth" });
                       }}
                     >
                       <Package className="h-5 w-5 mr-2" />
@@ -266,6 +262,43 @@ function HomePage() {
 
             {/* Products Tab */}
             <TabsContent value="products" className="space-y-8">
+              {/* Category Filters */}
+              <div className="max-w-4xl mx-auto animate-fade-in-up">
+                <Card className="p-4 sm:p-6 bg-gradient-to-r from-secondary/30 to-muted/30 border-accent/20">
+                  <div className="text-center mb-4">
+                    <h3 className="text-lg font-semibold text-foreground mb-2">
+                      Filter by Category
+                    </h3>
+                    <p className="text-sm text-muted-foreground">
+                      Click on a category to filter products
+                    </p>
+                  </div>
+                  <div className="flex flex-wrap justify-center gap-3">
+                    <Button
+                      variant={activeCategory === "All" ? "default" : "outline"}
+                      size="sm"
+                      onClick={() => setActiveCategory("All")}
+                      className="px-4 py-2 rounded-xl transition-all duration-300"
+                    >
+                      All Products
+                    </Button>
+                    {CATEGORIES.slice(1).map((category) => (
+                      <Button
+                        key={category}
+                        variant={
+                          activeCategory === category ? "default" : "outline"
+                        }
+                        size="sm"
+                        onClick={() => setActiveCategory(category)}
+                        className="px-4 py-2 rounded-xl transition-all duration-300"
+                      >
+                        {category}
+                      </Button>
+                    ))}
+                  </div>
+                </Card>
+              </div>
+
               {/* Search and Filter Bar */}
               <div className="max-w-4xl mx-auto animate-fade-in-up">
                 <Card className="p-4 sm:p-6 bg-gradient-to-r from-secondary/30 to-muted/30 border-accent/20">
