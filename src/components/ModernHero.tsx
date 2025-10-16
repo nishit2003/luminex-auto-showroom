@@ -24,7 +24,7 @@ export function ModernHero({
   onDownloadCatalog,
 }: ModernHeroProps) {
   return (
-    <section className="relative py-24 bg-gradient-hero overflow-hidden rounded-3xl">
+    <section className="relative py-12 sm:py-16 md:py-24 bg-gradient-hero overflow-hidden rounded-2xl sm:rounded-3xl">
       {/* Enhanced Background Elements with Automotive Theme */}
       <div className="absolute inset-0 opacity-20">
         {/* Headlight beam effects */}
@@ -55,9 +55,9 @@ export function ModernHero({
         <div className="absolute inset-0 bg-gradient-mesh opacity-30"></div>
       </div>
 
-      <div className="container mx-auto px-4 relative z-10">
+      <div className="container mx-auto px-3 sm:px-4 relative z-10">
         <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-16">
+          <div className="text-center mb-8 sm:mb-12 md:mb-16">
             <div className="mb-8">
               <Badge
                 variant="secondary"
@@ -68,37 +68,37 @@ export function ModernHero({
               </Badge>
             </div>
 
-            <h1 className="text-5xl md:text-7xl font-bold text-gradient-hero mb-8 animate-fade-in leading-tight">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold text-gradient-hero mb-6 sm:mb-8 animate-fade-in leading-tight">
               Illuminate Your Journey
             </h1>
 
-            <p className="text-xl md:text-2xl text-primary-foreground/90 mb-12 animate-slide-up max-w-4xl mx-auto leading-relaxed">
+            <p className="text-lg sm:text-xl md:text-2xl text-primary-foreground/90 mb-8 sm:mb-12 animate-slide-up max-w-4xl mx-auto leading-relaxed">
               Premium automotive lighting solutions for every vehicle. From
               advanced LED headlights to intelligent fog lamps, we light the way
               forward with cutting-edge innovation and unmatched reliability.
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-6 justify-center animate-scale-in mb-16">
+            <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center animate-scale-in mb-8 sm:mb-12 md:mb-16">
               <Button
-                className="btn-accent text-lg px-12 py-4 h-14 font-bold shadow-2xl hover:shadow-glow"
+                className="btn-accent text-base sm:text-lg px-8 sm:px-12 py-3 sm:py-4 h-12 sm:h-14 font-bold shadow-2xl hover:shadow-glow"
                 onClick={onBrowseProducts}
               >
-                <Star className="h-5 w-5 mr-2" />
+                <Star className="h-4 w-4 sm:h-5 sm:w-5 mr-2" />
                 Explore Products
               </Button>
               <Button
                 variant="outline"
-                className="text-lg px-12 py-4 h-14 font-bold border-2 border-accent text-accent hover:bg-accent hover:text-accent-foreground transition-all duration-300 bg-white/10 backdrop-blur-sm"
+                className="text-base sm:text-lg px-8 sm:px-12 py-3 sm:py-4 h-12 sm:h-14 font-bold border-2 border-accent text-accent hover:bg-accent hover:text-accent-foreground transition-all duration-300 bg-white/10 backdrop-blur-sm"
                 onClick={onDownloadCatalog}
               >
-                <Download className="h-5 w-5 mr-2" />
+                <Download className="h-4 w-4 sm:h-5 sm:w-5 mr-2" />
                 Download Catalogue
               </Button>
             </div>
           </div>
 
           {/* Enhanced Product Categories Showcase */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 animate-fade-in-up">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 animate-fade-in-up">
             {[
               {
                 icon: Car,
@@ -135,19 +135,19 @@ export function ModernHero({
                 style={{ animationDelay: `${index * 100}ms` }}
                 onClick={onBrowseProducts}
               >
-                <CardContent className="p-6 text-center">
+                <CardContent className="p-4 sm:p-6 text-center">
                   <div
-                    className={`w-16 h-16 mx-auto mb-4 rounded-2xl bg-gradient-to-br ${category.color} flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}
+                    className={`w-12 h-12 sm:w-16 sm:h-16 mx-auto mb-3 sm:mb-4 rounded-xl sm:rounded-2xl bg-gradient-to-br ${category.color} flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}
                   >
-                    <category.icon className="w-8 h-8 text-accent" />
+                    <category.icon className="w-6 h-6 sm:w-8 sm:h-8 text-accent" />
                   </div>
-                  <h3 className="font-bold text-lg text-primary-foreground mb-2">
+                  <h3 className="font-bold text-base sm:text-lg text-primary-foreground mb-2">
                     {category.label}
                   </h3>
-                  <div className="text-2xl font-bold text-accent mb-1">
+                  <div className="text-xl sm:text-2xl font-bold text-accent mb-1">
                     {category.count}
                   </div>
-                  <p className="text-sm text-primary-foreground/70">
+                  <p className="text-xs sm:text-sm text-primary-foreground/90">
                     {category.description}
                   </p>
                   <div className="w-0 group-hover:w-full h-0.5 bg-gradient-to-r from-accent to-white transition-all duration-500 mx-auto mt-3"></div>
@@ -157,7 +157,7 @@ export function ModernHero({
           </div>
 
           {/* Trust Indicators */}
-          <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-6 animate-fade-in-up">
+          <div className="mt-8 sm:mt-12 md:mt-16 grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 animate-fade-in-up">
             {[
               {
                 icon: Shield,
@@ -185,13 +185,13 @@ export function ModernHero({
                 className="text-center"
                 style={{ animationDelay: `${index * 100}ms` }}
               >
-                <div className="w-12 h-12 mx-auto mb-3 rounded-xl bg-white/20 backdrop-blur-sm flex items-center justify-center">
-                  <feature.icon className="w-6 h-6 text-accent" />
+                <div className="w-10 h-10 sm:w-12 sm:h-12 mx-auto mb-2 sm:mb-3 rounded-lg sm:rounded-xl bg-white/20 backdrop-blur-sm flex items-center justify-center">
+                  <feature.icon className="w-5 h-5 sm:w-6 sm:h-6 text-accent" />
                 </div>
-                <h4 className="font-semibold text-primary-foreground text-sm mb-1">
+                <h4 className="font-semibold text-primary-foreground text-xs sm:text-sm mb-1">
                   {feature.label}
                 </h4>
-                <p className="text-xs text-primary-foreground/70">
+                <p className="text-xs text-primary-foreground/90">
                   {feature.description}
                 </p>
               </div>

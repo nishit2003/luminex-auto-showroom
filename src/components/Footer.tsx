@@ -39,9 +39,7 @@ export function Footer() {
                 </div>
               </div>
               <div>
-                <h3 className="font-bold text-xl text-accent">
-                  Luminex AutoTech
-                </h3>
+                <h3 className="font-bold text-xl text-accent">Grosan</h3>
                 <p className="text-sm text-primary-foreground/80 font-medium">
                   Automotive Lighting Solutions
                 </p>
@@ -192,7 +190,7 @@ export function Footer() {
 
         <div className="flex flex-col sm:flex-row justify-between items-center gap-6 text-sm text-primary-foreground/80">
           <p className="font-medium">
-            © {currentYear} Luminex AutoTech. All rights reserved.
+            © {currentYear} Grosan. All rights reserved.
           </p>
           <div className="flex gap-8">
             <a

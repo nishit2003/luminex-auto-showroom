@@ -149,7 +149,7 @@ ${formData.message}
               <Card className="card-feature bg-gradient-primary text-primary-foreground">
                 <CardContent className="p-8">
                   <h3 className="text-2xl font-bold mb-6">
-                    Why Choose Luminex AutoTech?
+                    Why Choose Grosan?
                   </h3>
                   <div className="space-y-4">
                     <div className="flex items-start gap-3">

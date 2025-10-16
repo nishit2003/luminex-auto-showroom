@@ -18,7 +18,6 @@ import {
   Clock,
   Truck,
 } from "lucide-react";
-import { ProductComparisonTool } from "./ProductComparisonTool";
 
 interface HeadlightShowcaseProps {
   onViewProducts: () => void;
@@ -143,20 +142,20 @@ export function HeadlightShowcase({
   };
 
   return (
-    <section className="py-20 bg-gradient-to-b from-background to-secondary/20">
-      <div className="container mx-auto px-4">
+    <section className="py-12 sm:py-16 md:py-20 bg-gradient-to-b from-background to-secondary/20">
+      <div className="container mx-auto px-3 sm:px-4">
         {/* Section Header */}
-        <div className="text-center mb-16">
-          <Badge className="bg-gradient-to-r from-accent to-blue-500 text-white px-6 py-2 text-sm font-bold mb-6 animate-fade-in">
-            <Award className="h-4 w-4 mr-2" />
+        <div className="text-center mb-8 sm:mb-12 md:mb-16">
+          <Badge className="bg-gradient-to-r from-accent to-blue-500 text-white px-4 sm:px-6 py-2 text-xs sm:text-sm font-bold mb-4 sm:mb-6 animate-fade-in">
+            <Award className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2" />
             Premium Headlight Collection
           </Badge>
 
-          <h2 className="text-4xl md:text-5xl font-bold text-gradient-primary mb-6 animate-fade-in">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gradient-primary mb-4 sm:mb-6 animate-fade-in">
             Illuminate Your Drive
           </h2>
 
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed animate-slide-up">
+          <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed animate-slide-up">
             Discover our comprehensive range of automotive headlights designed
             for superior visibility, durability, and style. From cutting-edge
             LED technology to reliable halogen solutions.
@@ -164,20 +163,20 @@ export function HeadlightShowcase({
         </div>
 
         {/* Headlight Categories */}
-        <div className="mb-16">
+        <div className="mb-8 sm:mb-12 md:mb-16">
           <Tabs
             value={activeTab}
             onValueChange={setActiveTab}
             className="w-full"
           >
-            <TabsList className="grid w-full grid-cols-3 mb-8 bg-secondary/50 p-2 rounded-2xl">
+            <TabsList className="grid w-full grid-cols-1 sm:grid-cols-3 mb-6 sm:mb-8 bg-secondary/50 p-1 sm:p-2 rounded-xl sm:rounded-2xl">
               {headlightCategories.map((category) => (
                 <TabsTrigger
                   key={category.id}
                   value={category.id}
-                  className="data-[state=active]:bg-accent data-[state=active]:text-white rounded-xl font-semibold transition-all duration-300"
+                  className="data-[state=active]:bg-accent data-[state=active]:text-white rounded-lg sm:rounded-xl font-semibold transition-all duration-300 text-sm sm:text-base"
                 >
-                  <category.icon className="h-5 w-5 mr-2" />
+                  <category.icon className="h-4 w-4 sm:h-5 sm:w-5 mr-1 sm:mr-2" />
                   {category.name}
                 </TabsTrigger>
               ))}
@@ -189,8 +188,8 @@ export function HeadlightShowcase({
                 value={category.id}
                 className="mt-8"
               >
-                <Card className="card-feature p-8">
-                  <div className="grid md:grid-cols-2 gap-8 items-center">
+                <Card className="card-feature p-4 sm:p-6 md:p-8">
+                  <div className="grid md:grid-cols-2 gap-6 sm:gap-8 items-center">
                     <div>
                       <div className="flex items-center gap-4 mb-6">
                         <div
@@ -330,15 +329,6 @@ export function HeadlightShowcase({
               </Card>
             ))}
           </div>
-        </div>
-
-        {/* Product Comparison Tool */}
-        <div className="mb-16">
-          <ProductComparisonTool
-            onProductSelect={(product) => {
-              onAddToEnquiry(product);
-            }}
-          />
         </div>
 
         {/* Technical Specifications */}
